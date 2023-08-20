@@ -1,0 +1,32 @@
+{
+  "usuarios": [
+    {
+      "nombre": "Emmanuel",
+      "telefono": "7224717127",
+      "N_cuenta": "1960370",
+      "carrera": "Inge",
+      "id": 1
+    },
+    {
+      "nombre": "Emmanuel 2",
+      "telefono": "7224717127",
+      "N_cuenta": "1960370",
+      "carrera": "Inge",
+      "id": 2
+    },
+    {
+      "nombre": "Benigno",
+      "telefono": "22312",
+      "N_cuenta": "13311",
+      "carrera": "Ing xo",
+      "id": 3
+    },
+    {
+      "nombre": "Emmanuel 3",
+      "telefono": "57589755",
+      "N_cuenta": "1960370",
+      "carrera": "Inge",
+      "id": 4
+    }
+  ]
+}
