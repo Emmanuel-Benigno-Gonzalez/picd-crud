@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, StyleSheet, Platform } from 'react-native';
 import { TextInput, Headline, Button, Paragraph, Dialog, Portal } from 'react-native-paper';
 import globalStyles from '../styles/global';
@@ -8,7 +8,9 @@ import { API_URL } from "../util/constants";
 
 const NuevoUsuario = ({ navigation, route }) => {
 
-  const { guardarConsultaAPI } = route.params;
+  //console.log(route.params);
+
+  const { guardarConsultarAPI } = route.params;
 
   // campos formulario
   const [ nombre, guardarNombre ] = useState('');
@@ -17,9 +19,19 @@ const NuevoUsuario = ({ navigation, route }) => {
   const [ carrera, guardarCarrera ] = useState('');
   const [ alerta, guardarAlerta ] = useState(false);
 
-  /*const leerNombre = (texto) => {
-    console.log(texto);
-  }*/
+  // Detectar si estamos editando o no 
+  useEffect(() => {
+    if(route.params.usuario) {
+      //Si estamos Editando
+      const { nombre, telefono, numero_cuenta, carrera } = route.params.usuario;
+
+      guardarNombre(nombre);
+      guardarTelefono(telefono);
+      guardarNumero_cuenta(numero_cuenta);
+      guardarCarrera(carrera);
+    }
+  }, []);
+
 
   // almacena el cliente en la BD
   const guardarUsuario = async () => {
@@ -31,8 +43,6 @@ const NuevoUsuario = ({ navigation, route }) => {
       guardarAlerta(true);
       return;
     }
-    //console.log('Guardando Usuario');
-
     
     // Convertir a enteros
     const telefonoInt = parseInt(telefono);
@@ -46,27 +56,43 @@ const NuevoUsuario = ({ navigation, route }) => {
 
     // Generar el usuario
     const usuario = { nombre, telefono: telefonoInt, numero_cuenta: nCuentaInt, carrera }
-    console.log(usuario);
+    //console.log(usuario);
 
-    // Guardar el usuario en la api
-    try {
+    // Si estamos editando o creando un nuevo usuario
+    if(route.params.usuario) {
+      // Editando un usuario
+      const { id } = route.params.usuario;
+      usuario.id = id;
+      const url = `${API_URL}/personas/${id}`;
+      //console.log(url);
 
-      const url = `${API_URL}/personas`;
-
-      if(Platform.OS === 'ios') {
-        //Para IOS
-        //await axios.post('http://localhost:3000/usuarios', usuario);
-        await axios.post(url, usuario); 
-
-      } else {
-        // Para andriod
-        //await axios.post('http://192.168.100.14:3000/usuarios', usuario); 
-        await axios.post(url, usuario); 
-    
+      try {
+        await axios.put(url, usuario);
+      } catch (error) {
+        console.log(error);
       }
 
-    } catch (error) {
-      console.log(error);
+    } else {
+      // Guardar el usuario en la api
+      try {
+
+        const url = `${API_URL}/personas`;
+
+        if(Platform.OS === 'ios') {
+          //Para IOS
+          //await axios.post('http://localhost:3000/usuarios', usuario);
+          await axios.post(url, usuario); 
+
+        } else {
+          // Para andriod
+          //await axios.post('http://192.168.100.14:3000/usuarios', usuario); 
+          await axios.post(url, usuario); 
+      
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     // redireccionar
@@ -79,7 +105,7 @@ const NuevoUsuario = ({ navigation, route }) => {
     guardarCarrera('');
 
     // Cambiar a true para traernos al nuevo cliente
-    guardarConsultaAPI(true);
+    guardarConsultarAPI(true);
 
   }
 

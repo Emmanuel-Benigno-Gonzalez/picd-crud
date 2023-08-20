@@ -1,19 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
-  SafeAreaView, 
-  StyleSheet,
-  ScrollView, 
-  Text, 
-  View,
-  StatusBar 
+  StyleSheet
 } from 'react-native';
 
 import Inicio from './views/Inicio';
 import NuevoUsuario from './views/NuevoUsuario';
 import DetallesUsuario from './views/DetallesUsuario';
-
-import BarraSuperior from './components/ui/Barra'
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 
