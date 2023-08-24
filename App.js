@@ -12,6 +12,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Refresh from './components/ui/Refresh';
 
 const Stack = createStackNavigator();
 
@@ -49,9 +50,9 @@ const App = () => {
               component={Inicio}
               options={ ({navigation, route}) => ({
                 headerTitleAlign: 'center',
-                //headerLeft: (props) => <BarraSuperior {...props}
+                //headerLeft: (props) => <Refresh {...props}
                 //                          navigation={navigation}
-                //                          route={route}
+                //                         route={route}
                 //                        />
               })
               }

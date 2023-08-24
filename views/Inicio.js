@@ -38,6 +38,10 @@ const Inicio = ({navigation}) => {
                 Nuevo Usuario
             </Button>
 
+            <Button icon="check" onPress={ () => navigation.navigate("Inicio", guardarConsultarAPI(true) ) }>
+                Refresh
+            </Button>
+
             <Headline style={globalStyles.titulo}>{ usuarios.length > 0 ? "Usuarios": "Aún no hay usuarios" }</Headline>
 
             <FlatList
